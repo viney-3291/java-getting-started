@@ -52,10 +52,16 @@ pipeline:
                   spec:
                     shell: Sh
                     command: |-
-                      echo "Running Maven Clean Package..."
+                      apt-get update
+                      apt-get install -y openjdk-17-jdk
+
+                      export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+                      export PATH=$JAVA_HOME/bin:$PATH
+
+                      java -version
                       mvn -version
+
                       mvn clean package -DskipTests
-                      echo "Build completed."
               - step:
                   type: BuildAndPushDockerRegistry
                   name: build_push_docker_image
