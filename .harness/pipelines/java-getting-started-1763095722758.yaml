@@ -71,7 +71,7 @@ pipeline:
                     repo: vinay3291/vinay-java-app
                     tags:
                       - latest
-                      - ${HARNESS_BUILD_ID}
+                      - <+pipeline.sequenceId>
                     dockerfile: ./Dockerfile
                     context: .
   properties:
