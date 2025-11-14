@@ -25,9 +25,50 @@ pipeline:
           runtime:
             type: Cloud
             spec: {}
+    - stage:
+        name: Build-And-Push
+        identifier: BuildAndPush
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+            override: true
+          buildIntelligence:
+            enabled: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Maven Build
+                  identifier: Maven_Build
+                  spec:
+                    shell: Sh
+                    command: |-
+                      echo "Running Maven Clean Package..."
+                      mvn -version
+                      mvn clean package -DskipTests
+                      echo "Build completed."
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: build_push_docker_image
+                  identifier: build_push_docker_image
+                  spec:
+                    connectorRef: dockerhub_vinay
+                    repo: vinay3291/vinay-java-app
+                    tags:
+                      - latest
   properties:
     ci:
       codebase:
         connectorRef: account.Github
         repoName: viney-3291/java-getting-started
         build: <+input>
+        sparseCheckout: []
