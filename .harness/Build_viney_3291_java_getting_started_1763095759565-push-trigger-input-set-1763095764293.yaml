@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_viney_3291_java_getting_started_1763095759565-push-trigger-input-set
+  identifier: Build_viney_3291_java_getting_started_1763095759565pushtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: vinayjavacicd
+  pipeline:
+    identifier: Build_viney_3291_java_getting_started_1763095759565
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
